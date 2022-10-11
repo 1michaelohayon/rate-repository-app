@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   text: {
     color: theme.colors.textPrimary,
     fontSize: theme.fontSizes.body,
-    fontFamily: theme.fonts.main,
+    fontFamily: theme.fonts,
     fontWeight: theme.fontWeights.normal,
   },
   colorTextSecondary: {
@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
+
 });
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
   const textStyle = [
+    
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'primary' && styles.colorPrimary,

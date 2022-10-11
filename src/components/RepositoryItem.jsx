@@ -1,4 +1,4 @@
-
+import * as yup from 'yup'
 import { View, Image, StyleSheet } from "react-native"
 
 import Text from "./Text"
