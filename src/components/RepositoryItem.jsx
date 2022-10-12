@@ -1,4 +1,3 @@
-import * as yup from 'yup'
 import { View, Image, StyleSheet } from "react-native"
 
 import Text from "./Text"
@@ -62,7 +61,7 @@ const RepositoryItem = ({ item }) => {
         <Stat number={item.stargazersCount} title="Stars" />
         <Stat number={item.forksCount} title="Forks" />
         <Stat number={item.reviewCount} title="Reviews" />
-        <Stat number={item.reviewCount} title="Rating" />
+        <Stat number={item.ratingAverage} title="Rating" />
       </View>
     </View>
   )
