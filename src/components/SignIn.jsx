@@ -40,7 +40,7 @@ const SignIn = () => {
     const { username, password } = values;
 
     try {
-      const data  = await signIn({ username, password });
+      const data = await signIn({ username, password });
       console.log('Data ', data);
     } catch (e) {
       console.log(e);
@@ -49,24 +49,24 @@ const SignIn = () => {
 
 
 
-  return <View>
-    <Formik
-      initialValues={{ username: '', password: '' }}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
-  </View>
-
+  return (
+    <View>
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+      </Formik>
+    </View>
+  )
 
 
 }
 
 export default SignIn
 
-
-const SignInForm = ({ onSubmit }) => {
+export const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <FormikTextInput

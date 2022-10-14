@@ -13,6 +13,7 @@ query {
         forksCount
         reviewCount
         ownerAvatarUrl
+        ratingAverage
       }
     }
   }

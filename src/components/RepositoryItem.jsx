@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View key={item.id} style={styles.container}>
+    <View testID="repositoryItem" key={item.id} style={styles.container}>
       <View style={styles.contained}>
         <View style={styles.col}>
           <Image
@@ -73,7 +73,7 @@ export default RepositoryItem
 
 
 
-const Stat = ({ number, title }) => {
+export const Stat = ({ number, title }) => {
   const numberParser = (number) => number >= 1000
     ? `${Number.parseFloat(number / 1000).toFixed(1)}k`
     : number
@@ -85,7 +85,7 @@ const Stat = ({ number, title }) => {
   )
 }
 
-const Tag = ({ title }) => {
+export const Tag = ({ title }) => {
   return <View style={styles.contained}>
     <View style={styles.language}>
       <Text color="white">{title}</Text>
