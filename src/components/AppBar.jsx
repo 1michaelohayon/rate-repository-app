@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
   },
   tab: {
     padding: 10
+  },
+  row: {
+    flexDirection: 'row'
   }
 });
 
@@ -37,24 +40,29 @@ const AppBar = () => {
           fontWeight="bold"
           color="white"
           fontSize="subheading">
-          logout
+          Sign out
         </Text>
       </Pressable>
     </View>
   )
 
 
-  console.log('isLogged?:', logged)
+
+  // console.log('isLogged?:', logged)
 
   return <View style={styles.container}>
     <ScrollView horizontal={true}>
-      <AppBarTab to="/" title={"Repositories"}>Repositories</AppBarTab>
+      <AppBarTab to="/" title={"Repositories"} />
       {logged
-        ? logoutTab
-        : <AppBarTab to="/signin" title={"Sign In"}></AppBarTab>
+        ? <View style={styles.row}>
+          <AppBarTab to="/createreview" title={"Create a review"} />
+          {logoutTab}
+        </View>
+        : <View style={styles.row}>
+          <AppBarTab to="/signin" title={"Sign In"} />
+          <AppBarTab to="/signup" title={"Sign Up"} />
+        </View>
       }
-
-
     </ScrollView>
   </View>;
 };

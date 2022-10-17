@@ -1,10 +1,14 @@
 import { StyleSheet, View } from 'react-native';
-import { Route, Routes, Navigate } from 'react-router-native';
+import { Route, Routes, Navigate, useParams } from 'react-router-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import theme from '../theme';
 import SignIn from './SignIn';
+import SignUp from './SignUp'
+import ReviewForm from './ReviewForm';
 
+import useRepoById from '../hooks/useRepoByID';
+import RepositoryView from './RepositoryView';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,14 +21,26 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  const { ID } = useParams();
+
+  const { getRepoById, repository } = useRepoById();
+
+  const handleGetRepoID = async (id) => {
+    await getRepoById(id)
+  }
+
+
   return (
     <View style={styles.container}>
       <AppBar />
-        <Routes>
-          <Route path="/" element={<RepositoryList />} exact />
-          <Route path="/signin" element={<SignIn />} exact />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+      <Routes>
+        <Route path="/:ID" element={<RepositoryView repository={repository} />} />
+        <Route path="/" element={<RepositoryList getRepoBy={handleGetRepoID} />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/createreview" element={<ReviewForm getRepoBy={handleGetRepoID} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </View>
   );
 };

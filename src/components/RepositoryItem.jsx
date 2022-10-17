@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet } from "react-native"
-
+import { Pressable } from "react-native";
 import Text from "./Text"
 import theme from "../theme";
 
@@ -32,37 +32,46 @@ const styles = StyleSheet.create({
     flexDirection: 'collum',
 
   },
+  button: {
+    backgroundColor: theme.colors.emphasisPrimary,
+    padding: 17,
+    margin: 10,
+    marginStart: 10,
+    marginEnd: 10,
+    borderRadius: theme.roundness,
+  },
 });
 
 
 
 
 const RepositoryItem = ({ item }) => {
+
   return (
     <View testID="repositoryItem" key={item.id} style={styles.container}>
-      <View style={styles.contained}>
-        <View style={styles.col}>
-          <Image
-            style={styles.tinyLogo}
-            source={{
-              uri: item.ownerAvatarUrl,
-            }}
-          />
+        <View style={styles.contained}>
+          <View style={styles.col}>
+            <Image
+              style={styles.tinyLogo}
+              source={{
+                uri: item.ownerAvatarUrl,
+              }}
+            />
+          </View>
+          <View style={styles.col}>
+            <Text fontWeight="bold">{item.fullName}</Text>
+            <Text color="textSecondary">{`\n ${item.description}`}
+            </Text>
+            <Tag title={item.language} />
+          </View>
         </View>
-        <View style={styles.col}>
-          <Text fontWeight="bold">{item.fullName}</Text>
-          <Text color="textSecondary">{`\n ${item.description}`}
-          </Text>
-            <Tag title={item.language}/>
-        </View>
-      </View>
 
-      <View style={styles.contained}>
-        <Stat number={item.stargazersCount} title="Stars" />
-        <Stat number={item.forksCount} title="Forks" />
-        <Stat number={item.reviewCount} title="Reviews" />
-        <Stat number={item.ratingAverage} title="Rating" />
-      </View>
+        <View style={styles.contained}>
+          <Stat number={item.stargazersCount} title="Stars" />
+          <Stat number={item.forksCount} title="Forks" />
+          <Stat number={item.reviewCount} title="Reviews" />
+          <Stat number={item.ratingAverage} title="Rating" />
+        </View>
     </View>
   )
 }
