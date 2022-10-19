@@ -3,10 +3,11 @@ import { useQuery } from '@apollo/client';
 import { GET_LOGGED_USER } from '../graphql/queries';
 
 
-const useLoggedUser = () => {
+const useLoggedUser = (includeReviews) => {
   const [logged, setLoggedUser] = useState();
 
   const response = useQuery(GET_LOGGED_USER, {
+    variables: { includeReviews },
     fetchPolicy: 'cache-and-network'
   });
 
@@ -15,7 +16,7 @@ const useLoggedUser = () => {
   const fetchLoggedUser = async () => {
 
     console.log('Logged:', response.data.me);
-    
+
     if (response.data) {
       setLoggedUser(response.data.me)
     }
@@ -28,7 +29,7 @@ const useLoggedUser = () => {
   }, [response.data]);
 
 
-  return { logged, loading, refetch: fetchLoggedUser };
+  return { logged, loading, refetch: response.refetch };
 
 };
 

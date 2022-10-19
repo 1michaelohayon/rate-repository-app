@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
   },
   circle: {
     borderRadius: '50%',
-    width: 47,
-    height: 47,
+    width: 48,
+    height: 48,
     borderWidth: 2,
     padding: 10,
     borderColor: theme.colors.emphasisPrimary,
@@ -53,23 +53,26 @@ const styles = StyleSheet.create({
 });
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryView = ({ repository }) => {
+const RepositoryView = ({ repository, onEndReach }) => {
   const reviwsNodes = repository.reviews.edges.map(edges => edges.node);
-  console.log(reviwsNodes)
+
+  const ReviewItemUserTitle = ({ item }) => <ReviewItem item={item} title={item.user.username} />
+
+
   return (
     <View key={repository}>
       <RepositoryItem item={repository} />
-      <View style={styles.button}>
-        <Pressable onPress={() => Linking.openURL(repository.url)}>
+      <Pressable onPress={() => Linking.openURL(repository.url)}>
+        <View style={styles.button}>
           <Text color={theme.colors.textWhite} style={{ textAlign: 'center' }}>Open in GitHub</Text>
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
       <FlatList
         data={reviwsNodes}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={ReviewItem}
-
-      // other props
+        renderItem={ReviewItemUserTitle}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     </View>
   )
@@ -78,12 +81,13 @@ const RepositoryView = ({ repository }) => {
 export default RepositoryView
 
 
-const ReviewItem = ({ item }) => {
+
+export const ReviewItem = ({ item, title }) => {
   const year = item.createdAt.substring(0, 4);
   const month = item.createdAt.substring(5, 7);
   const day = item.createdAt.substring(8, 10);
   const creationDate = `${day}.${month}.${year}`
-  
+
   return (
     <View key={item.id} style={styles.container}>
       <View style={styles.row}>
@@ -91,7 +95,7 @@ const ReviewItem = ({ item }) => {
 
 
         <View style={styles.collum}>
-          <Text fontWeight="bold" fontSize="subheading" style={styles.textBlock}>{item.user.username}</Text>
+          <Text fontWeight="bold" fontSize="subheading" style={styles.textBlock}>{title}</Text>
           <Text color="textSecondary" style={styles.textBlock}>{creationDate}</Text>
           <Text style={styles.textBlock}>{item.text}</Text>
         </View>

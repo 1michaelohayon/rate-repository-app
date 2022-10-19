@@ -29,8 +29,7 @@ const RepositoryList = ({ getRepoBy }) => {
       ? { orderDirection: "ASC", orderBy: "RATING_AVERAGE" }
       : { orderDirection: "DESC", orderBy: "CREATED_AT" }
 
-  const { repositories } = useRepositories(mutationArgs, searchKeyword)
-
+  const { repositories, fetchMore } = useRepositories(mutationArgs, searchKeyword)
 
 
   const handleSortView = sortView === null ? true : null
@@ -40,6 +39,9 @@ const RepositoryList = ({ getRepoBy }) => {
   }
 
 
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   return <View>
     <Pressable style={({ padding: 7 })} onPress={() => setSortView(handleSortView)}>
@@ -62,20 +64,14 @@ const RepositoryList = ({ getRepoBy }) => {
       value={searchKeywordRaw}
       placeholder="Find"
     />
-    <RepositoryListContainer repositories={repositories} getRepoBy={getRepoBy} />
+    <RepositoryListContainer repositories={repositories} getRepoBy={getRepoBy} onEndReach={onEndReach} />
   </View>
 };
 
 export default RepositoryList;
 
-/* 
-sort by lowest rating
-sort by highest rating
-sort by latest repos
-*/
 
-
-export const RepositoryListContainer = ({ repositories, getRepoBy }) => {
+export const RepositoryListContainer = ({ repositories, getRepoBy, onEndReach }) => {
 
   const PressableyItem = ({ item }) => {
     return <Pressable onPress={() => getRepoBy(item.id)}><RepositoryItem item={item} /></Pressable>
@@ -85,13 +81,16 @@ export const RepositoryListContainer = ({ repositories, getRepoBy }) => {
     ? repositories.edges.map(edge => edge.node)
     : [];
 
+  const keyExtractor = ({ item }) => item.id
+
   return (
     <FlatList
+      key={keyExtractor}
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={PressableyItem}
-
-    // other props
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };

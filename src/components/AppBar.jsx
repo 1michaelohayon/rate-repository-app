@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  const { logged } = useLoggedUser()
+  const { logged } = useLoggedUser(false)
   const apolloClient = useApolloClient()
   const authStorage = useAuthStorage()
 
@@ -48,7 +48,6 @@ const AppBar = () => {
 
 
 
-  // console.log('isLogged?:', logged)
 
   return <View style={styles.container}>
     <ScrollView horizontal={true}>
@@ -56,6 +55,7 @@ const AppBar = () => {
       {logged
         ? <View style={styles.row}>
           <AppBarTab to="/createreview" title={"Create a review"} />
+          <AppBarTab to="/userreviews" title={"User reviews"} />
           {logoutTab}
         </View>
         : <View style={styles.row}>

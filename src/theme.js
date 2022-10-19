@@ -11,7 +11,7 @@ const theme = {
     backgroundPrimary: "#e1e4e8",
     backgroundSecondry: "white",
     emphasisPrimary: "#0366d6",
-    error: '#d73a4a'
+    error: '#d73a4a',
   },
   fontSizes: {
     body: 14,

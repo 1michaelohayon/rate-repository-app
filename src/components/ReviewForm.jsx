@@ -38,7 +38,7 @@ const validationSchema = yup.object().shape({
 
 
 
-const ReviewForm = ({getRepoBy}) => {
+const ReviewForm = ({ getRepoBy }) => {
   const [createReview] = useCreateReview()
   const onSubmit = async values => {
     const { ownerName, repositoryName, review } = values;
@@ -94,11 +94,11 @@ const ReviewFields = ({ onSubmit }) => {
         placeholderTextColor={theme.colors.textSecondary}
         multiline={true}
       />
-      <View style={styles.button}>
-        <Pressable onPress={onSubmit}>
+      <Pressable onPress={onSubmit}>
+        <View style={styles.button}>
           <Text color={theme.colors.textWhite} style={{ textAlign: 'center' }}>Create a review</Text>
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
 
     </View>
   )

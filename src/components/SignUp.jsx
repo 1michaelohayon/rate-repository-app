@@ -104,11 +104,11 @@ const SignUpFields = ({ onSubmit }) => {
         secureTextEntry={true}
         placeholderTextColor={theme.colors.textSecondary}
       />
-      <View style={styles.button}>
-        <Pressable onPress={onSubmit}>
+      <Pressable onPress={onSubmit}>
+        <View style={styles.button}>
           <Text color={theme.colors.textWhite} style={{ textAlign: 'center' }}>Sign Up</Text>
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
     </View>
   )
 }
